@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const courseRoutes = require('./routers/coursRouter');
+const categoryRoutes = require('./routers/categoryRouter');
+const lessonRoutes = require('./routers/lessonRouter');
 /*
 const AuthRoute = require( './routers/authRoute.js');
 const UserRoute = require( './routers/UserRoute.js');
@@ -28,6 +31,10 @@ mongoose
 // Utilisation du body parser middleware
 app.use(bodyParser.json()); // Pour les données JSON
 app.use(bodyParser.urlencoded({ extended: true })); // Pour les données URL encodées
+app.use(bodyParser.json());
+app.use('/cours', courseRoutes);
+app.use('/category', categoryRoutes);
+app.use('/lesson', lessonRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
