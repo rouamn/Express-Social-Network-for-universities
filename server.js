@@ -8,7 +8,10 @@ const UserRoute = require( './routers/UserRoute.js');
 const ChatRoute = require( './routers/chatRoute.js');
 const MessageRoute = require( './routers/messageRoute.js');*/
 //import dotenv from 'dotenv';
+import eventRouter from "./routers/eventRouter.js";
 const dotenv = require("dotenv");
+// Connect event router
+app.use('/api/events', eventRouter);
 
 dotenv.config();
 mongoose
