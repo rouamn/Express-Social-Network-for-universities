@@ -1,15 +1,13 @@
-import Verification from "../models/emailVerification.js";
-import PasswordReset from "../models/passwordReset.js";
-import User from "../models/user.js";
-import { hashString } from "../Utils/index.js";
-import { CompareString } from "../Utils/index.js";
-import { resetPasswordLink } from "../Utils/sendEmail.js";
-import FriendRequest from "../models/friendRequest.js"
-import { createJwt } from "../Utils/index.js";
+const Verification = require("../models/emailVerification.js");
+const PasswordReset = require("../models/passwordReset.js");
+const User = require("../models/user.js");
+const { hashString } = require("../Utils/index.js");
+const { CompareString } = require("../Utils/index.js");
+const { resetPasswordLink } = require("../Utils/sendEmail.js");
+const FriendRequest = require("../Models/friendRequest.js");
+const { createJwt } = require("../Utils/index.js");
 
-
-
-export const verifyEmail = async (req, res) => {
+ const verifyEmail = async (req, res) => {
     const { userId, token } = req.params;
   
     try {
@@ -79,7 +77,7 @@ export const verifyEmail = async (req, res) => {
   };
 
 
-  export const requestPasswordReset = async (req, res) => {
+   const requestPasswordReset = async (req, res) => {
     try {
       const { email } = req.body;
       const user = await User.findOne({ email });
@@ -108,7 +106,7 @@ export const verifyEmail = async (req, res) => {
   };
   
 
-export const resetPassword = async (req, res) => {
+ const resetPassword = async (req, res) => {
   const { userId, token } = req.params;
 
   try {
@@ -151,7 +149,7 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-export const changePassword = async (req, res, next) => {
+ const changePassword = async (req, res, next) => {
   try {
     const { userId, password } = req.body;
 
@@ -177,7 +175,7 @@ export const changePassword = async (req, res, next) => {
 };
 
 
-export const getUser = async (req, res, next) => {
+ const getUser = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
     const { id } = req.params;
@@ -210,7 +208,7 @@ export const getUser = async (req, res, next) => {
   }
 };
 
-export const updateUser = async (req, res, next) => {
+ const updateUser = async (req, res, next) => {
   try {
     const { firstName, lastName, location, profileUrl } = req.body;
 
@@ -249,7 +247,7 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-export const friendRequest = async (req, res, next) => {
+ const friendRequest = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
 
@@ -295,7 +293,7 @@ export const friendRequest = async (req, res, next) => {
 };
 
 
-export const getFriendRequest = async (req, res) => {
+ const getFriendRequest = async (req, res) => {
   try {
     const { userId } = req.body.user;
 
@@ -326,7 +324,7 @@ export const getFriendRequest = async (req, res) => {
   }
 };
 
-export const acceptRequest = async (req, res, next) => {
+ const acceptRequest = async (req, res, next) => {
   try {
     const id = req.body.user.userId;
 
@@ -373,7 +371,7 @@ export const acceptRequest = async (req, res, next) => {
 };
 
 
-export const profileViews = async (req, res, next) => {
+ const profileViews = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
     const { id } = req.body;
@@ -396,3 +394,5 @@ export const profileViews = async (req, res, next) => {
     });
   }
 };
+
+module.exports = { verifyEmail, requestPasswordReset, resetPassword, changePassword ,getUser , updateUser, friendRequest, getFriendRequest, acceptRequest, profileViews};
