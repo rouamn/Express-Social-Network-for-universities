@@ -1,22 +1,18 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import morgan from "morgan";
-import bodyParser from "body-parser";
-import path from "path";
-//securty packges
-import helmet from "helmet";
-import errorMiddleware from "./middleware/errorMiddleware.js";
-import router from "./routers/index.js";
-import mongoose from "mongoose";
-
-//configuration
-const __dirname = path.resolve(path.dirname(""));
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const path = require("path");
+// security packages
+const helmet = require("helmet");
+const errorMiddleware = require("./middleware/errorMiddleware.js");
+const router = require("./routers/index.js");
+const mongoose = require("mongoose");
 
 dotenv.config();
 const app = express();
 app.use(express.static(path.join(__dirname, "views/build")));
-
 
 app.use(helmet());
 app.use(cors());
@@ -28,10 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(router);
 
-
-
-//erreur middleware
-app.use(errorMiddleware)
+// Error middleware
+app.use(errorMiddleware);
 
 dotenv.config();
 mongoose
@@ -41,7 +35,7 @@ mongoose
   })
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log(`listening at ${process.env.PORT}`);
+      console.log(`Listening at ${process.env.PORT}`);
     });
   })
   .catch((err) => {
@@ -55,9 +49,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour les données URL enc
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
-//routes
+// Routes
 /*app.use("/auth", AuthRoute);
 app.use('/user', UserRoute);
 app.use('/chat', ChatRoute);
 app.use('/message', MessageRoute);
 */
+

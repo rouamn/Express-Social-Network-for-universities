@@ -1,6 +1,5 @@
 
-import JWT from "jsonwebtoken";
-
+const JWT = require("jsonwebtoken");
 const userAuth = async (req, res, next) => {
   const authHeader = req?.headers?.authorization;
 
@@ -24,4 +23,4 @@ const userAuth = async (req, res, next) => {
   }
 };
 
-export default userAuth;
+module.exports = userAuth;
