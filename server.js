@@ -10,6 +10,8 @@ const errorMiddleware = require("./middleware/errorMiddleware.js");
 const router = require("./routers/index.js");
 const mongoose = require("mongoose");
 
+
+
 dotenv.config();
 const app = express();
 app.use(express.static(path.join(__dirname, "views/build")));
@@ -54,5 +56,5 @@ app.get("/", (req, res) => {
 app.use('/user', UserRoute);
 app.use('/chat', ChatRoute);
 app.use('/message', MessageRoute);
-*/
 
+*/

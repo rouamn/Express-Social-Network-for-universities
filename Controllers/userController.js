@@ -1,4 +1,4 @@
-const Verification = require("../models/emailVerification.js");
+  const Verification = require("../models/emailVerification.js");
 const PasswordReset = require("../models/passwordReset.js");
 const User = require("../models/user.js");
 const { hashString } = require("../Utils/index.js");
@@ -179,9 +179,11 @@ const { createJwt } = require("../Utils/index.js");
   try {
     const { userId } = req.body.user;
     const { id } = req.params;
-
+//chercher soit par id fourni dans params de requete soit id de utilsateur actuel 
     const user = await User.findById(id ?? userId).populate({
+// récupérer les détails des amis de l'utilisateur à partir du champ "friends".
       path: "friends",
+// L'option select: "-password" est utilisée pour exclure le champ de mot de passe des amis lors de la récupération
       select: "-password",
     });
 
@@ -216,9 +218,7 @@ const { createJwt } = require("../Utils/index.js");
       next("Please provide all required fields");
       return;
     }
-
     const { userId } = req.body.user;
-
     const updateUser = {
       firstName,
       lastName,
@@ -250,9 +250,7 @@ const { createJwt } = require("../Utils/index.js");
  const friendRequest = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
-
     const { requestTo } = req.body;
-
     const requestExist = await FriendRequest.findOne({
       requestFrom: userId,
       requestTo,
@@ -367,6 +365,31 @@ const { createJwt } = require("../Utils/index.js");
       success: false,
       error: error.message,
     });
+  }
+};
+
+export const suggestedFriends = async (req, res) => {
+  try {
+    const { userId } = req.body.user;
+    let queryObject = {};
+//excluree l'utilisateur actuel par id ($ne(not equal))
+    queryObject._id = { $ne: userId };
+//exclure amis actuels (not in)
+    queryObject.friends = { $nin: userId };
+//chercher amis avec nos criteres 
+    let queryResult = Users.find(queryObject)
+      .limit(15)
+      .select("firstName lastName profileUrl profession -password");
+
+    const suggestedFriends = await queryResult;
+
+    res.status(200).json({
+      success: true,
+      data: suggestedFriends,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
   }
 };
 
