@@ -12,7 +12,9 @@ const mongoose = require("mongoose");
 
 dotenv.config();
 const app = express();
-app.use(express.static(path.join(__dirname, "views/build")));
+app.use(express.static(path.join(__dirname, "views")));
+
+
 
 app.use(helmet());
 app.use(cors());
