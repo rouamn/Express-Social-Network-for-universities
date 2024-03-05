@@ -1,4 +1,4 @@
-  const Verification = require("../models/emailVerification.js");
+const Verification = require("../models/emailVerification.js");
 const PasswordReset = require("../models/passwordReset.js");
 const User = require("../models/user.js");
 const { hashString } = require("../Utils/index.js");
@@ -368,7 +368,7 @@ const { createJwt } = require("../Utils/index.js");
   }
 };
 
-export const suggestedFriends = async (req, res) => {
+ const suggestedFriends = async (req, res) => {
   try {
     const { userId } = req.body.user;
     let queryObject = {};
@@ -418,4 +418,4 @@ export const suggestedFriends = async (req, res) => {
   }
 };
 
-module.exports = { verifyEmail, requestPasswordReset, resetPassword, changePassword ,getUser , updateUser, friendRequest, getFriendRequest, acceptRequest, profileViews};
+module.exports = { verifyEmail, requestPasswordReset, resetPassword, changePassword ,getUser , updateUser, friendRequest, getFriendRequest, acceptRequest,suggestedFriends, profileViews};

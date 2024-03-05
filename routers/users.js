@@ -11,7 +11,8 @@ const {
   friendRequest,
   getFriendRequest,
   acceptRequest,
-  profileViews
+  profileViews,
+  suggestedFriends
 } = require("../Controllers/userController.js");
 
 const userAuth = require("../middleware/authMiddleware.js");
@@ -45,6 +46,7 @@ router.post("/get-friend-request", userAuth, getFriendRequest);
 
 router.post("/accept-request", userAuth, acceptRequest);
 
+router.post("/suggested-friends", userAuth, suggestedFriends);
 
 router.post("/profile-view", userAuth, profileViews);
 
