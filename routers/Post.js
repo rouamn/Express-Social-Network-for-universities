@@ -15,8 +15,9 @@ const {
 
 const router = express.Router();
 
-router.post("/create-post",userAuth,createPost);
+
 router.get("/",userAuth,getPosts);
+router.post("/create-post", userAuth, createPost);
 router.get("/:id",userAuth,getPost);
 router.post("/get-user-post/:id", userAuth, getUserPost);
 router.get("/comments/:postId", getComments);
@@ -25,4 +26,6 @@ router.post("/like-comment/:id/:rid?", userAuth, likePostComment);
 router.post("/comment/:id", userAuth, commentPost);
 router.post("/reply-comment/:id", userAuth, replyPostComment);
 router.delete("/:id", userAuth, deletePost);
+
+
 module.exports = router;

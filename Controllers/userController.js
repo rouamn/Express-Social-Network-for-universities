@@ -377,12 +377,10 @@ const { createJwt } = require("../Utils/index.js");
 //exclure amis actuels (not in)
     queryObject.friends = { $nin: userId };
 //chercher amis avec nos criteres 
-    let queryResult = Users.find(queryObject)
+    let queryResult = User.find(queryObject)
       .limit(15)
-      .select("firstName lastName profileUrl profession -password");
-
+      .select("firstName lastName profileUrl profession");
     const suggestedFriends = await queryResult;
-
     res.status(200).json({
       success: true,
       data: suggestedFriends,

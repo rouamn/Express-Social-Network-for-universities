@@ -1,6 +1,6 @@
 const User = require("../models/user.js");
-const Posts= require ("../Models/commentsModel.js")
-const Comments= require ("../Models/postModel.js")
+const Posts = require("../Models/postModel.js");
+const Comments = require("../Models/commentsModel.js")
 
 
 const createPost = async (req, res, next) => {
@@ -12,7 +12,6 @@ const createPost = async (req, res, next) => {
       next("You must provide a description");
       return;
     }
-
     const post = await Posts.create({
       userId,
       description,
@@ -20,7 +19,7 @@ const createPost = async (req, res, next) => {
     });
 
     res.status(200).json({
-      success: true,
+      sucess: true,
       message: "Post created successfully",
       data: post,
     });
@@ -31,7 +30,7 @@ const createPost = async (req, res, next) => {
 };
 
 
- const getPosts = async (req, res, next) => {
+const getPosts = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
     const { search } = req.body;
@@ -51,7 +50,7 @@ const createPost = async (req, res, next) => {
     const posts = await Posts.find(search ? searchPostQuery : {})
       .populate({
         path: "userId",
-        select: "firstName lastName location profileUrl -password",
+        select: "firstName lastName location profileUrl ",
       })
       .sort({ _id: -1 });
 
@@ -62,15 +61,12 @@ const createPost = async (req, res, next) => {
     const otherPosts = posts?.filter(
       (post) => !friends.includes(post?.userId?._id.toString())
     );
-
     let postsRes = null;
-
     if (friendsPosts?.length > 0) {
       postsRes = search ? friendsPosts : [...friendsPosts, ...otherPosts];
     } else {
       postsRes = posts;
     }
-
     res.status(200).json({
       sucess: true,
       message: "successfully",
@@ -82,32 +78,14 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const getPost = async (req, res, next) => {
+const getPost = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const post = await Posts.findById(id).populate({
       path: "userId",
-      select: "firstName lastName location profileUrl -password",
+      select: "firstName lastName location profileUrl *",
     });
-    // .populate({
-    //   path: "comments",
-    //   populate: {
-    //     path: "userId",
-    //     select: "firstName lastName location profileUrl -password",
-    //   },
-    //   options: {
-    //     sort: "-_id",
-    //   },
-    // })
-    // .populate({
-    //   path: "comments",
-    //   populate: {
-    //     path: "replies.userId",
-    //     select: "firstName lastName location profileUrl -password",
-    //   },
-    // });
-
     res.status(200).json({
       sucess: true,
       message: "successfully",
@@ -119,8 +97,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
-
- const getUserPost = async (req, res, next) => {
+const getUserPost = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -142,7 +119,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const getComments = async (req, res, next) => {
+const getComments = async (req, res, next) => {
   try {
     const { postId } = req.params;
 
@@ -168,7 +145,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const likePost = async (req, res, next) => {
+const likePost = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
     const { id } = req.params;
@@ -198,7 +175,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const likePostComment = async (req, res, next) => {
+const likePostComment = async (req, res, next) => {
   const { userId } = req.body.user;
   const { id, rid } = req.params;
 
@@ -261,7 +238,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const commentPost = async (req, res, next) => {
+const commentPost = async (req, res, next) => {
   try {
     const { comment, from } = req.body;
     const { userId } = req.body.user;
@@ -291,7 +268,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const replyPostComment = async (req, res, next) => {
+const replyPostComment = async (req, res, next) => {
   const { userId } = req.body.user;
   const { comment, replyAt, from } = req.body;
   const { id } = req.params;
@@ -320,7 +297,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
- const deletePost = async (req, res, next) => {
+const deletePost = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -336,4 +313,4 @@ const createPost = async (req, res, next) => {
   }
 };
 
-module.exports = { createPost, getPosts, getPost, getUserPost ,getComments , likePost, likePostComment, deletePost,commentPost,replyPostComment};
+module.exports = { createPost, getPosts, getPost, getUserPost, getComments, likePost, likePostComment, deletePost, commentPost, replyPostComment };
