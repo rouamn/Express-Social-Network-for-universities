@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
       password: passwordHash,
     });
 
-    sendVerificationEmail(newUser, res);
+  sendVerificationEmail(newUser, res);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
