@@ -3,9 +3,9 @@ const { hashString, CompareString, createJwt } = require('../Utils/index.js');
 const { sendVerificationEmail } = require('../Utils/sendEmail.js');
 
 const register = async (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password ,profession} = req.body;
 
-  if (!firstName || !lastName || !email || !password) {
+  if (!firstName || !lastName || !email || !password || !profession) {
     next("Provide Required Fields");
     return;
   }
@@ -24,6 +24,7 @@ const register = async (req, res, next) => {
       lastName,
       email,
       password: passwordHash,
+      profession
     });
 
     sendVerificationEmail(newUser, res);

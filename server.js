@@ -10,10 +10,9 @@ const errorMiddleware = require("./middleware/errorMiddleware.js");
 const router = require("./routers/index.js");
 const mongoose = require("mongoose");
 
-
-
 dotenv.config();
 const app = express();
+
 app.use(express.static(path.join(__dirname, "views/build")));
 
 app.use(helmet());
@@ -51,10 +50,4 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour les données URL enc
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
-// Routes
-/*app.use("/auth", AuthRoute);
-app.use('/user', UserRoute);
-app.use('/chat', ChatRoute);
-app.use('/message', MessageRoute);
 
-*/
