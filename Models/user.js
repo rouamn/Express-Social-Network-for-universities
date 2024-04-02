@@ -23,8 +23,7 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-        minlength: [5, "password length should be greater than 5 characters"],
-    },
+        minlength: [5, "password length should be greater than 5 characters"],},
     friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
     location: { type: String },
     profileUrl: { type: String },
@@ -33,4 +32,4 @@ const UserSchema = new Schema({
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);
-module.exports = User;
+module.exports=User
