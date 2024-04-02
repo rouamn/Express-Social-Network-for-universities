@@ -11,7 +11,7 @@ const {
     likePost,
     likePostComment,
     replyPostComment,
-  } = require("../controllers/postController.js") ;
+  } = require("../Controllers/postController.js") ;
 
 const router = express.Router();
 

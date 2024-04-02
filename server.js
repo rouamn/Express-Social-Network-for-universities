@@ -51,6 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour les données URL enc
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+app.use('/uploads', express.static(path.join(__dirname, 'routers/uploads')));
 // Routes
 /*app.use("/auth", AuthRoute);
 app.use('/user', UserRoute);

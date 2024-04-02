@@ -1,4 +1,4 @@
-const User = require('../models/user.js');
+const User = require('../Models/user.js');
 const { hashString, CompareString, createJwt } = require('../Utils/index.js');
 const { sendVerificationEmail } = require('../Utils/sendEmail.js');
 
@@ -84,4 +84,6 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+
+
+module.exports = { register, login};

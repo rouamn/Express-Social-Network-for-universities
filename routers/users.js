@@ -22,7 +22,7 @@ const router = express.Router();
 router.get("/verify/:userId/:token", verifyEmail);
 
 router.get("/verified", (req, res) => {
-  res.sendFile(path.join(__dirname, "views/verifiedpage.html")); // Update the path to your "verifiedpage.html" file
+  res.sendFile(path.join(__dirname, "../views/verifiedpage.html"));
 });
 
 router.post("/request-passwordreset", requestPasswordReset);
