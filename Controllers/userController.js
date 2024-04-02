@@ -148,13 +148,11 @@ const { createJwt } = require("../Utils/index.js");
     res.status(404).json({ message: error.message });
   }
 };
-
  const changePassword = async (req, res, next) => {
   try {
     const { userId, password } = req.body;
 
     const hashedpassword = await hashString(password);
-    console.log("hashed :",hashedpassword)
 
     const user = await User.findByIdAndUpdate(
       { _id: userId },
@@ -164,15 +162,16 @@ const { createJwt } = require("../Utils/index.js");
     if (user) {
       await PasswordReset.findOneAndDelete({ userId });
 
-      const message = "PASSWORD SUCCESSFULLY RESET.";
-      res.redirect(`/users/resetpassword?status=success&message=${message}`);
-      return;
+      res.status(200).json({
+        ok: true,
+      });
     }
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: error.message });
   }
 };
+
 
 
  const getUser = async (req, res, next) => {

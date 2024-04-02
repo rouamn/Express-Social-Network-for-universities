@@ -14,6 +14,10 @@ const multer = require('multer');
 dotenv.config();
 const app = express();
 
+app.use(express.static(path.join(__dirname, "views")));
+
+
+
 const http = require("http").createServer(app); 
 const initializeSocket = require('./socket/socket.js'); 
 
