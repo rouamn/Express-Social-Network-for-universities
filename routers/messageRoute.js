@@ -4,7 +4,7 @@ const userAuth = require("../middleware/authMiddleware.js");
 const router = express.Router()
 router.post('/add', MessageControllers.addMessage);
 
-router.get('/:chatId', MessageControllers.getMessages);
+router.get('/:chatId',MessageControllers.getMessages);
 
 
 module.exports = router;
