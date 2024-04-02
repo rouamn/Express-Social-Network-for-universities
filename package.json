@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "author": "",
   "license": "ISC",
@@ -13,11 +13,13 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.4",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "gridfs-stream": "^1.1.1",
     "helmet": "^7.1.0",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.2",
@@ -27,5 +29,8 @@
     "nodemailer": "^6.9.9",
     "nodemon": "^3.0.3",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4"
   }
 }

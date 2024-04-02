@@ -59,3 +59,4 @@ app.use('/chat', ChatRoute);
 app.use('/message', MessageRoute);
 
 */
+module.exports = app;
