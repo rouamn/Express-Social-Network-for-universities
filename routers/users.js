@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 
+
 const {
   verifyEmail,
   requestPasswordReset,
@@ -22,17 +23,19 @@ const router = express.Router();
 router.get("/verify/:userId/:token", verifyEmail);
 
 router.get("/verified", (req, res) => {
+
+  // Use path.join to correctly construct the path to the HTML file
+
   res.sendFile(path.join(__dirname, "../views/verifiedpage.html"));
 });
-
 router.post("/request-passwordreset", requestPasswordReset);
 
 router.get("/reset-password/:userId/:token", resetPassword);
 
-router.post("/reset-password", changePassword);
+router.post("/reset-password", changePassword); 
 
 router.get("/resetpassword", (req, res) => {
-  res.sendFile(path.join(__dirname, "views/password.html")); // Update the path to your "password.html" file
+  res.sendFile(path.join(__dirname, "../views/password.html"));
 });
 
 router.post("/get-user/:id?", userAuth, getUser);
