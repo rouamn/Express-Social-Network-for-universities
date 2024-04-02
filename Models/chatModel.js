@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+  const mongoose = require("mongoose");
 
 
-const ChatSchema = new mongoose.Schema(
-    {
-      members: {
-        type: Array,
+  const ChatSchema = new mongoose.Schema(
+      {
+        members: {
+          type: Array,
+        },
       },
-    },
-    {
-      timestamps: true,
-    }
-  );
+      {
+        timestamps: true,
+      }
+    );
 
 
 
@@ -19,4 +19,4 @@ const ChatSchema = new mongoose.Schema(
 
 
 
-module.exports = mongoose.model("Chat", ChatSchema);
+  module.exports = mongoose.model("Chat", ChatSchema);

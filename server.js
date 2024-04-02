@@ -61,3 +61,4 @@ app.get("/", (req, res) => {
 
 // Initialize Socket.IO
 initializeSocket(http);
+module.exports = app;
