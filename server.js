@@ -24,6 +24,7 @@ const http = require("http").createServer(app);
 const initializeSocket = require('./socket/socket.js'); 
 
 app.use(express.static(path.join(__dirname, "views/build")));
+
 app.use(helmet());
 
 
