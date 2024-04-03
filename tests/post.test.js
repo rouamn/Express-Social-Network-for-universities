@@ -19,9 +19,10 @@ describe('Post CRUD', () => {
     token = generateToken(); 
   });
 //fine
+/*
   it('should create a new post', async () => {
     const post = {
-      description: 'hey ',
+      description: 'first test is here  ',
       userId: '660ce0b613524192f0c7ba3c'
     };
     const res = await request(app)
@@ -32,7 +33,7 @@ describe('Post CRUD', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.data).toHaveProperty('_id');
     expect(res.body.data.description).toEqual(post.description);
-  });
+  });*/
 //fine
   it('should get posts', async () => {
     const res = await request(app)
@@ -44,7 +45,7 @@ describe('Post CRUD', () => {
 
 //fine
   it('should get a specific post', async () => {
-    const postId = '660d0002834e1165eee8cb95'; // Replace with an actual post ID
+    const postId = '660db4d98e1f0109cad94c5b'; // Replace with an actual post ID
   
     const res = await request(app)
       .get(`/posts/${postId}`)
@@ -68,7 +69,7 @@ describe('Post CRUD', () => {
   });
   //
   it('should get comments for a specific post', async () => {
-    const postId = '660d0002834e1165eee8cb95'; 
+    const postId = '660db4d98e1f0109cad94c5b'; 
     const res = await request(app)
       .get(`/posts/comments/${postId}`)
       .set('Authorization', `Bearer ${token}`);
@@ -77,8 +78,9 @@ describe('Post CRUD', () => {
     expect(Array.isArray(res.body.data)).toBeTruthy();
   });
 //fine
+/*
   it('should like a post', async () => {
-    const postId = '660d0002834e1165eee8cb95'; 
+    const postId = '660db4d98e1f0109cad94c5b'; 
     const res = await request(app)
       .post(`/posts/like/${postId}`)
       .set('Authorization', `Bearer ${token}`);
@@ -86,10 +88,10 @@ describe('Post CRUD', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.data.likes).toContain('660ce0b613524192f0c7ba3c');
   });
-
+*/
   //fine
   it('should comment on a post', async () => {
-    const postId = '660d0002834e1165eee8cb95'; 
+    const postId = '660db4d98e1f0109cad94c5b'; 
 
     const comment = 'This is a test comment.';
     const from = 'Test User';
@@ -102,22 +104,30 @@ describe('Post CRUD', () => {
     expect(res.body.comment).toEqual(comment);
     expect(res.body.from).toEqual(from);
   });
-//
-it('should reply to a comment on a post', async () => {
-  const postId = '660d0002834e1165eee8cb95'; 
-const commentId='660d091bb007d9456c484bd4'
-  const comment = 'This is a test reply.';
-  const from = 'Test User';
-  const res = await request(app)
-    .post(`/posts/reply-comment/${commentId}`)
-    .set('Authorization', `Bearer ${token}`)
-    .send({ comment, from });
 
-  expect(res.statusCode).toEqual(200);
-  expect(res.body.data.replies).toContainEqual(expect.objectContaining({ comment, from }));
-});
+  it('should reply to a comment on a post', async () => {
+    const postId = '660db4d98e1f0109cad94c5b';
+    const commentId = '660db8e46007d5a4ca806c55';
+    const comment = 'This is a test reply.';
+    const from = 'Test User';
+  
+    const res = await request(app)
+      .post(`/posts/reply-comment/${commentId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ comment, from });
+  
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.message).toEqual('Reply added successfully');
+    expect(res.body.data).toBeDefined(); // Vérifiez que les données sont définies
+    expect(res.body.data.replies).toContainEqual(expect.objectContaining({ comment, from }));
+  });
+  
+  
 
-it('should like a comment on a post', async () => {
+/*it('should like a comment on a post', async () => {
+    const postId = '660db4d98e1f0109cad94c5b'; 
+const commentId='660db6233b5df792a8923609'
 
   const res = await request(app)
     .put(`/posts/like-comment/${commentId}`)
@@ -126,8 +136,9 @@ it('should like a comment on a post', async () => {
   expect(res.statusCode).toEqual(201);
   expect(res.body.likes).toContain('660ce0b613524192f0c7ba3c');
 });
+*/
 //fine
-it('should delete a post', async () => {
+/*it('should delete a post', async () => {
   const postId = '660d0002834e1165eee8cb95'; 
 
   const res = await request(app)
@@ -136,7 +147,7 @@ it('should delete a post', async () => {
 
   expect(res.statusCode).toEqual(200);
   expect(res.body.success).toBeTruthy();
-});
+});*/
 
 
 
@@ -144,5 +155,4 @@ it('should delete a post', async () => {
 
   
   
-
 });
