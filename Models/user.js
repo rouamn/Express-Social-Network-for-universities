@@ -24,6 +24,10 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         minlength: [5, "password length should be greater than 5 characters"],},
+        profession:{
+            type: String,
+            required: true,
+        },
     friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
     location: { type: String },
     profileUrl: { type: String },
