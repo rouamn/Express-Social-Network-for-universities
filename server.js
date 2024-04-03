@@ -65,6 +65,7 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+app.use('/uploads', express.static(path.join(__dirname, 'routers/uploads')));
 
 // Initialize Socket.IO
 initializeSocket(http);
