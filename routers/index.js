@@ -11,6 +11,8 @@ const MessageRoute = require('./messageRoute.js');
 const courseRoute = require("./courseRoute.js");
 const taskRoute = require("./taskRoute.js")
 
+const storyRouter = require("./story.js")
+
 const router = express.Router();
 
 router.use('/auth', authRoute);
@@ -24,6 +26,7 @@ router.use('/message', MessageRoute);
 
 router.use('/course', courseRoute);
 router.use('/task',taskRoute);
+router.use('/stories', storyRouter);
 
 
 module.exports = router;

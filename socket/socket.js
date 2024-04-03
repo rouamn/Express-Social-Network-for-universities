@@ -41,6 +41,16 @@ const socketIO = require('socket.io');
           io.to(user.socketId).emit("recieve-message", data);
         }
       });
+//posts
+      socket.on('post-liked', async ({ postId, userId ,friendId}) => {
+        console.log('Received post-liked event with postId:', postId, 'from userId:', userId, 'to friendId:', friendId);
+    });
+    socket.on('friend-request', ({ userId, friendId }) => {
+        console.log('Send-friend-request from userId:', userId, 'to friendId:', friendId);
+    });
+    socket.on('friend-request', ({ userId, friendId,status }) => {
+        console.log('friend-request event from userId:', userId, 'to friendId:', friendId, 'status is',status);
+    });
     });
   }
 
