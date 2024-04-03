@@ -8,6 +8,9 @@ const eventRoute = require("./event.js")
 const ChatRoute = require('./chatRoute.js');
 const MessageRoute = require('./messageRoute.js');
 
+const courseRoute = require("./courseRoute.js");
+const taskRoute = require("./taskRoute.js")
+
 const router = express.Router();
 
 router.use('/auth', authRoute);
@@ -18,6 +21,9 @@ router.use('/event', eventRoute);
 
 router.use('/chat', ChatRoute);
 router.use('/message', MessageRoute);
+
+router.use('/course', courseRoute);
+router.use('/task',taskRoute);
 
 
 module.exports = router;
