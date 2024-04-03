@@ -106,7 +106,7 @@ const getUserPost = async (req, res, next) => {
     const post = await Posts.find({ userId: id })
       .populate({
         path: "userId",
-        select: "firstName lastName location profileUrl -password",
+        select: "firstName lastName location profileUrl ",
       })
       .sort({ _id: -1 });
 
