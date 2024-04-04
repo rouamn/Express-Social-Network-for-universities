@@ -5,8 +5,8 @@ services:
     container_name: db
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: amino
+      MONGO_INITDB_ROOT_PASSWORD: 201JMT3242
     ports:
       - 27017:27017
     volumes:
@@ -20,7 +20,17 @@ services:
       - '5000:5000'
     depends_on:
       - db
+    environment:
+      PORT: 5000
+      MONGO_DB: "mongodb+srv://amino:201JMT3242@cluster0.1l7tdn6.mongodb.net/users?retryWrites=true&w=majority"
+      JWT_SECRET: 'sasaasaaddzfdqdssdfsd'
+      AUTH_EMAIL: 'abdessayedamine@outlook.fr'
+      AUTH_PASSWORD: '201JMT3242'
+      APP_URL: "http://localhost:5000/"
+      CLOUDINARY_CLOUD_NAME: "dqthcvs08"
+      CLOUDINARY_API_KEY: "536594678163238"
+      CLOUDINARY_API_SECRET: "QVX5F2y9cK5hgZsqgMiaTacarKg"
     volumes: 
-      - mongo-data:
+      - mongo-data:/path/to/mongo-data
 volumes:
   mongo-data:
