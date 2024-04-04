@@ -31,6 +31,8 @@ services:
       CLOUDINARY_API_KEY: "536594678163238"
       CLOUDINARY_API_SECRET: "QVX5F2y9cK5hgZsqgMiaTacarKg"
     volumes: 
-      - mongo-data:/path/to/mongo-data
+      - type: volume
+        source: mongo-data
+        target: /app/data 
 volumes:
   mongo-data:
