@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
+    "build": "tsc", 
     "build-dev": "npm run build"
-
   },
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
