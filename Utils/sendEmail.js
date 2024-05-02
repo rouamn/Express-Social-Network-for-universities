@@ -1,10 +1,9 @@
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
-const Verification = require("../models/emailVerification.js");
+const Verification = require("../Models/emailVerification.js");
 const { hashString } = require("../Utils/index.js");
-const PasswordReset = require("../models/passwordReset.js");
-
+const PasswordReset = require("../Models/passwordReset.js");
 dotenv.config();
 const { AUTH_EMAIL, AUTH_PASSWORD, APP_URL } = process.env;
 
@@ -16,9 +15,13 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+
+
 const sendVerificationEmail = async (user, res) => {
   const { _id, email, lastName } = user;
   const token = _id + uuidv4();
+  console.log('Token:', token); // Log the token
+  console.log('User ID:', _id); // Log the user ID
   const link = APP_URL + "users/verify/" + _id + "/" + token;
   const mailOptions = {
     from: AUTH_EMAIL,
@@ -40,7 +43,7 @@ const sendVerificationEmail = async (user, res) => {
         </p>
         <div style="margin-top: 20px;">
             <h5>Best Regards</h5>
-            <h5>ShareFun Team</h5>
+            <h5>Better call us Team</h5>
         </div>
     </div>`,
   };
@@ -77,7 +80,9 @@ const sendVerificationEmail = async (user, res) => {
 const resetPasswordLink = async (user, res) => {
   const { _id, email } = user;
   const token = _id + uuidv4();
-  const link = APP_URL + "users/reset-password/" + _id + "/" + token;
+  console.log('Token:', token); // Log the token
+  console.log('User ID:', _id); // Log the user ID
+  const link = `http://localhost:3000/users/reset-password/${_id}/${token}`; // Update the URL with your backend server address
   const mailOptions = {
     from: AUTH_EMAIL,
     to: email,
@@ -120,7 +125,38 @@ const resetPasswordLink = async (user, res) => {
   }
 };
 
+const SendReminderMailer=async(email, task)=> {
+  const { title } = task;
+  console.log("email",email)
+  const mailOptions = {
+    from: AUTH_EMAIL,
+    to: email,
+    subject: "Task Reminder",
+    html: `<div style='font-family: Arial, sans-serif; font-size: 20px; color: #333; background-color: #f7f7f7; padding: 20px; border-radius: 5px;'>
+            <p>Hello,</p>
+            <p>This is a reminder that you have a task "${title}" in progress that needs to be completed.</p>
+            <hr>
+            <div style="margin-top: 20px;">
+                <h5>Best Regards</h5>
+                <h5>Your Team</h5>
+            </div>
+          </div>`
+  };
+
+  try {
+    console.log("Sending reminder email...");
+    // Send email and wait for the response
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Reminder email sent successfully!");
+    return { success: true, info };
+  } catch (error) {
+    console.error("Error sending reminder email:", error);
+    return { success: false, error };
+  }
+};
 module.exports = {
   sendVerificationEmail,
+  SendReminderMailer,
   resetPasswordLink,
+   
 };

@@ -9,7 +9,8 @@ const errorMiddleware = require("./middleware/errorMiddleware.js");
 const router = require("./routers/index.js");
 const mongoose = require("mongoose");
 const multer = require('multer');
-
+const {sendReminderEmails}=require("./Controllers/taskController.js")
+const cron = require('node-cron');
 
 
 
@@ -59,6 +60,13 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  const cronmailer = ()=> cron.schedule('* * * * *', async () => {
+    console.log('Running the reminder email job...');
+    await sendReminderEmails();
+  });
+  //exec
+  cronmailer()
 
 // Remove redundant body-parser middleware
 

@@ -28,6 +28,10 @@ const taskSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  emailsended: {
+    
+    type:Boolean,
+    default:false},
 });
 
 const Task = mongoose.model('Task', taskSchema);

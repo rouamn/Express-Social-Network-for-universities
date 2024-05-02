@@ -1,6 +1,8 @@
-const Task = require('../Models/task');
+const Task = require("../models/task.js");
+const User = require('../models/user.js');
+const {SendReminderMailer}=require("../Utils/sendEmail.js")
 
-exports.createTask = async (req, res) => {
+const createTask = async (req, res) => {
   try {
     const task = await Task.create(req.body);
     res.status(201).json(task);
@@ -9,7 +11,7 @@ exports.createTask = async (req, res) => {
   }
 };
 
-exports.getTasksByUserId = async (req, res) => {
+const getTasksByUserId = async (req, res) => {
   try {
     const tasks = await Task.find({ createdBy: req.params.userId });
     res.json(tasks);
@@ -17,7 +19,8 @@ exports.getTasksByUserId = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.getTasksByStatus = async (req, res) => {
+
+const getTasksByStatus = async (req, res) => {
   const { status, userId } = req.params;
   try {
     const tasks = await Task.find({ type: status, createdBy: userId });
@@ -26,7 +29,8 @@ exports.getTasksByStatus = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.updateTaskStatus = async (req, res) => {
+
+const updateTaskStatus = async (req, res) => {
   const { taskId, status } = req.params;
   try {
     const task = await Task.findByIdAndUpdate(
@@ -39,7 +43,8 @@ exports.updateTaskStatus = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.getAllTasks = async (req, res) => {
+
+const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find({ createdBy: req.params.userId });
     res.json(tasks);
@@ -48,7 +53,7 @@ exports.getAllTasks = async (req, res) => {
   }
 };
 
-exports.deleteTask = async (req, res) => {
+const deleteTask = async (req, res) => {
   const taskId = req.params.id;
   try {
     const task = await Task.deleteOne({ _id: taskId });
@@ -57,4 +62,60 @@ exports.deleteTask = async (req, res) => {
     console.log(err.message);
     res.status(500).json({ message: err.message });
   }
+};
+
+const sendReminderEmails = async () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    try {
+        const tasks = await Task.find({
+            type: 'IN_PROGRESS',
+            deadline: { $gte: today },
+            createdBy:{$ne: null},
+            emailsended:false
+        }).populate('createdBy');
+        let x=0
+
+        const tasksFinal=tasks.filter(t=>t.createdBy !==null)
+
+        if(tasksFinal && tasksFinal.length !== 0){
+          for (const task of tasksFinal) {
+            const userEmail = task.createdBy.email;
+            SendReminderMailer(userEmail, task).then(async (response)=>{
+                if(x<tasks.length-1){
+                    
+                    const updatedTask = await Task.findByIdAndUpdate(
+                      task._id,
+                      { emailsended: true }
+                    );                   
+                  if(updatedTask) {
+
+                    x++
+                  }
+                  }
+                    
+                    else{
+                    console.log(`Email sended to ${tasksFinals} users`)
+                }
+            }).catch(error=> {
+                console.log(`Error in sending Mail !`)
+            })
+    }
+        }else{
+            console.log("Nothing to send")
+        }
+       
+    } catch (err) {
+        console.log(`Error in sending Mail  : ${err}`);
+    }
+};
+
+module.exports = {
+  createTask,
+  getTasksByUserId,
+  getTasksByStatus,
+  updateTaskStatus,
+  getAllTasks,
+  deleteTask,
+  sendReminderEmails
 };
