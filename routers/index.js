@@ -13,6 +13,8 @@ const chapterRouter = require("./chapter");
 
 
 
+const storyRouter = require("./story.js")
+
 const router = express.Router();
 
 router.use('/auth', authRoute);
@@ -24,6 +26,7 @@ router.use('/message', MessageRoute);
 router.use('/course', courseRoute);
 router.use('/task',taskRoute);
 router.use('/stories', storyRouter);
+
 router.use('/chapter', chapterRouter);
 
 

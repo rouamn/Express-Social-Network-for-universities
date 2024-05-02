@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  db:
+    image: mongo:4.2
+    container_name: db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: amino
+      MONGO_INITDB_ROOT_PASSWORD: 201JMT3242
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/dump:/dump
+  app:
+    build: .
+    image: 192.168.33.10:8083/nodemongoapp:6.0
+    restart: always
+    container_name: back
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+    environment:
+      PORT: 5000
+      MONGO_DB: "mongodb+srv://amino:201JMT3242@cluster0.1l7tdn6.mongodb.net/users?retryWrites=true&w=majority"
+      JWT_SECRET: 'sasaasaaddzfdqdssdfsd'
+      AUTH_EMAIL: 'abdessayedamine@outlook.fr'
+      AUTH_PASSWORD: '201JMT3242'
+      APP_URL: "http://localhost:5000/"
+      CLOUDINARY_CLOUD_NAME: "dqthcvs08"
+      CLOUDINARY_API_KEY: "536594678163238"
+      CLOUDINARY_API_SECRET: "QVX5F2y9cK5hgZsqgMiaTacarKg"
+    volumes: 
+      - type: volume
+        source: mongo-data
+        target: /app/data 
+volumes:
+  mongo-data:

@@ -6,7 +6,7 @@ const Comments = require("../Models/commentsModel.js")
 const createPost = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
-    const { description, image } = req.body;
+    const { description, image ,video} = req.body;
 
     if (!description) {
       next("You must provide a description");
@@ -16,6 +16,8 @@ const createPost = async (req, res, next) => {
       userId,
       description,
       image,
+      video,
+
     });
 
     res.status(200).json({
@@ -104,7 +106,7 @@ const getUserPost = async (req, res, next) => {
     const post = await Posts.find({ userId: id })
       .populate({
         path: "userId",
-        select: "firstName lastName location profileUrl -password",
+        select: "firstName lastName location profileUrl ",
       })
       .sort({ _id: -1 });
 
@@ -126,11 +128,11 @@ const getComments = async (req, res, next) => {
     const postComments = await Comments.find({ postId })
       .populate({
         path: "userId",
-        select: "firstName lastName location profileUrl -password",
+        select: "firstName lastName location profileUrl ",
       })
       .populate({
         path: "replies.userId",
-        select: "firstName lastName location profileUrl -password",
+        select: "firstName lastName location profileUrl ",
       })
       .sort({ _id: -1 });
 

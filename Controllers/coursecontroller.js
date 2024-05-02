@@ -1,6 +1,7 @@
 const Course = require('../Models/course');
 const fs = require('fs');
 const path = require('path');
+//sonia-gestioncourse
 // Créer un cours
 exports.createCourse = async (req, res, next) => {
   try {
