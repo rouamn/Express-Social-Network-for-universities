@@ -30,6 +30,5 @@ router.get("/guestevents/:guest", getEventsByGuests);
 router.post("/relatedevents", getRelatedEvents);
 router.post("/likeevent/:id", userAuth, likeEvent);
 //router.get("/userevents/:userId", getEventsWithUserId);
-//add like
 
 module.exports = router;
