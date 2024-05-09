@@ -1,5 +1,5 @@
-const Task = require("../models/task.js");
-const User = require('../models/user.js');
+const Task = require("../Models/task.js");
+const User = require('../Models/user.js');
 const {SendReminderMailer}=require("../Utils/sendEmail.js")
 
 const createTask = async (req, res) => {

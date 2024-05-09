@@ -1,6 +1,6 @@
-const Verification = require("../models/emailVerification.js");
-const PasswordReset = require("../models/passwordReset.js");
-const User = require("../models/user.js");
+const Verification = require("../Models/emailVerification.js");
+const PasswordReset = require("../Models/passwordReset.js");
+const User = require("../Models/user.js");
 const { hashString } = require("../Utils/index.js");
 const { CompareString } = require("../Utils/index.js");
 const { resetPasswordLink } = require("../Utils/sendEmail.js");
