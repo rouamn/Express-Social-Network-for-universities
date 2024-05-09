@@ -7,13 +7,8 @@ const ChatRoute = require('./chatRoute.js');
 const MessageRoute = require('./messageRoute.js');
 const courseRoute = require("./courseRoute.js");
 const taskRoute = require("./taskRoute.js");
-const storyRouter = require("./story.js");
 const chapterRouter = require("./chapter");
 
-
-
-
-const storyRouter = require("./story.js")
 
 const router = express.Router();
 
@@ -25,8 +20,6 @@ router.use('/chat', ChatRoute);
 router.use('/message', MessageRoute);
 router.use('/course', courseRoute);
 router.use('/task',taskRoute);
-router.use('/stories', storyRouter);
-
 router.use('/chapter', chapterRouter);
 
 
